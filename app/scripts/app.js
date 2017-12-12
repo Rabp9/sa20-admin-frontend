@@ -19,7 +19,12 @@ angular
     'ui.bootstrap',
     'ngFileUpload',
     'ui.tinymce',
-    'ui.router'
+    'ui.sortable',
+    'thatisuday.ng-image-gallery',
+    'angularValidator',
+    'scrollable-table',
+    'ui.router',
+    'angular-toArrayFilter'
 ])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.interceptors.push('oAuthHttpInterceptor');
@@ -94,16 +99,7 @@ angular
         controllerAs: 'roles',
         title: 'Roles'
     };
-    
-    var usersState = {
-        name: 'users',
-        url: '/users',
-        templateUrl: 'views/users.html',
-        controller: 'UsersCtrl',
-        controllerAs: 'users',
-        title: 'Usuarios'
-    };
-    
+        
     var directorioState = {
         name: 'directorio',
         url: '/directorio',
@@ -121,33 +117,43 @@ angular
         controllerAs: 'cabeceras',
         title: 'Cabeceras'
     };
+    */
+   
+    var usersState = {
+        name: 'users',
+        url: '/users',
+        templateUrl: 'views/users.html',
+        controller: 'UsersCtrl',
+        controllerAs: 'users',
+        title: 'Usuarios'
+    };
     
     var usersLoginState = {
-        name: 'users-login',
-        url: '/users-login',
+        name: 'login',
+        url: '/login',
         templateUrl: 'views/users-login.html',
         controller: 'UsersLoginCtrl',
-        controllerAs: 'users-login',
+        controllerAs: 'login',
         title: 'Login'
     };
-    */
+    
     $stateProvider.state(mainState);
-    $stateProvider.state(infosState);/*
-    $stateProvider.state(nosotrosState);
+    $stateProvider.state(infosState);
+    /*$stateProvider.state(nosotrosState);
     $stateProvider.state(slidesState);
     $stateProvider.state(clientesState);
     $stateProvider.state(serviciosState);
     $stateProvider.state(noticiasState);
     $stateProvider.state(directorioState);
     $stateProvider.state(cabecerasState);
-    $stateProvider.state(rolesState);
+    $stateProvider.state(rolesState);*/
     $stateProvider.state(usersState);
-    $stateProvider.state(usersLoginState);*/
+    $stateProvider.state(usersLoginState);
     $urlRouterProvider.when('', '/');
 })
-.run(function($rootScope, $state, $cookies, $location, $window, envservice) {
-    angular.module('sa20AdminFrontendApp').path_location = envservice.getHost();
-    $rootScope.path_location = envservice.getHost();
+.run(function($rootScope, $state, $cookies, $location, $window, envService) {
+    angular.module('sa20AdminFrontendApp').path_location = envService.getHost();
+    $rootScope.path_location = envService.getHost();
     
     $('#dvMessageRoot').removeClass('dvHidden');
     $rootScope.tinymceOptions = {
@@ -171,30 +177,30 @@ angular
     
     $rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams, options) {
-        if (fromState.name === '' && toState.name === 'users-login') {
+        if (fromState.name === '' && toState.name === 'login') {
             $('#topbar-wrapper').addClass('ng-hide');
             $('#wrapper').addClass('inLogin');
             if ($rootScope.user !== undefined) {
                 $location.path('/');
             }
-        } else if (fromState.name === ''  && toState.name !== 'users-login') {
+        } else if (fromState.name === ''  && toState.name !== 'login') {
             $('#sidebar-wrapper').css('display', 'block');
             $('#wrapper').addClass('toggled');
             if ($rootScope.user === undefined) {
                 $('#sidebar-wrapper').css('display', 'none');
                 $('#wrapper').removeClass('toggled');
-                $location.path('/users-login');
+                $location.path('/login');
             }
-        } else if (fromState.name !== 'users-login' && toState.name === 'users-login') {
+        } else if (fromState.name !== 'login' && toState.name === 'login') {
             if ($rootScope.user !== undefined) {
                 $location.path('/');
             } else {
                 $('#sidebar-wrapper').css('display', 'none');
                 $('#wrapper').removeClass('toggled');
             }
-        } else if (fromState.name === 'users-login' && toState.name !== 'users-login') {
+        } else if (fromState.name === 'login' && toState.name !== 'login') {
             if ($rootScope.user === undefined) {
-                $location.path('/users-login');
+                $location.path('/login');
             } else {
                 $('#topbar-wrapper').removeClass('ng-hide');
                 $('#sidebar-wrapper').css('display', 'block');
@@ -205,7 +211,7 @@ angular
             if ($rootScope.user.rol.permisos.search(toState.name) >= 0) {
                 $rootScope.message_root = null;
             } else {
-                if (toState.name !== 'main' && toState.name !== 'users-login') {
+                if (toState.name !== 'main' && toState.name !== 'login') {
                     event.preventDefault();
                     $rootScope.message_root = {
                         type: 'error',
@@ -229,7 +235,7 @@ angular
             $('#topbar-wrapper').addClass('ng-hide');
             $('#wrapper').addClass('inLogin');
             $rootScope.message_root = [];
-            $location.path('/users-login');
+            $location.path('/login');
         }
     };
 });
