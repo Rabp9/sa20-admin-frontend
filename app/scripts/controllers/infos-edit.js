@@ -8,7 +8,8 @@
  * Controller of the sa20AdminFrontendApp
  */
 angular.module('sa20AdminFrontendApp')
-.controller('InfosEditCtrl', function ($scope, info, $uibModalInstance, infosService, $utilsviewservice) {
+.controller('InfosEditCtrl', function ($scope, info, $uibModalInstance, infosService,
+    $utilsViewService) {
     $scope.info = $.extend(true, {}, info);
 
     $scope.cancel = function() {
@@ -17,13 +18,13 @@ angular.module('sa20AdminFrontendApp')
 
     $scope.saveInfo = function(info, boton) {
         $('#' + boton).text('Guardando...');
-        $utilsviewservice.disable('#' + boton);
+        $utilsViewService.disable('#' + boton);
         
         infosService.save(info, function(data) {
-            $utilsviewservice.enable('#' + boton);
+            $utilsViewService.enable('#' + boton);
             $uibModalInstance.close(data);
         }, function(error) {
-            $utilsviewservice.enable('#' + boton);
+            $utilsViewService.enable('#' + boton);
             $uibModalInstance.close(error.data);
         });
     };

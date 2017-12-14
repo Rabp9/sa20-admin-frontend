@@ -8,11 +8,9 @@
  * Controller of the sa20AdminFrontendApp
  */
 angular.module('sa20AdminFrontendApp')
-.controller('InfosCtrl', function ($scope, infosService, $uibModal, $utilsviewservice) {
-    var search = ['quienes_somos_mensaje', 'historia_mensaje', 'directorio_mensaje',
-    'ubicacion_mensaje', 'telefono', 'email', 'facebook_link', 'transnv_resumen', 
-    'ubicacion_codigo', 'enlace_1_titulo', 'enlace_2_titulo', 'enlace_3_titulo',
-    'enlace_1_link', 'enlace_2_link', 'enlace_3_link', 'twitter_link', 'direccion', 'copyright', 'ubicacion_code'];
+.controller('InfosCtrl', function ($scope, infosService, $uibModal, $utilsViewService) {
+    var search = ['logo', 'logo_banner', 'title_banner', 'subtitle_banner', 'about_us',
+    'footer', 'facebook_link', 'twitter_link', 'copyright'];
     
     $scope.getInfos = function() {
         $scope.loading = true;
@@ -27,7 +25,7 @@ angular.module('sa20AdminFrontendApp')
     };
     
     $scope.showInfosEdit = function(info, event) {
-        $utilsviewservice.disable(event.currentTarget);
+        $utilsViewService.disable(event.currentTarget);
         
         var modalInstanceEdit = $uibModal.open({
             templateUrl: 'views/infos-edit.html',
@@ -39,7 +37,7 @@ angular.module('sa20AdminFrontendApp')
                 }
             }
         });
-        $utilsviewservice.enable(event.currentTarget);
+        $utilsViewService.enable(event.currentTarget);
         
         modalInstanceEdit.result.then(function (data) {
             $scope.getInfos();

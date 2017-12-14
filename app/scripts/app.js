@@ -45,25 +45,25 @@ angular
         controllerAs: 'infos',
         title: 'Información General'
     };
+    
+    var categoriesState = {
+        name: 'categories',
+        url: '/categorias',
+        templateUrl: 'views/categories.html',
+        controller: 'CategoriesCtrl',
+        controllerAs: 'categories',
+        title: 'Categorías'
+    };
+    
+    var postsState = {
+        name: 'posts',
+        url: '/posts',
+        templateUrl: 'views/posts.html',
+        controller: 'PostsCtrl',
+        controllerAs: 'posts',
+        title: 'Posts'
+    };
     /*
-    var nosotrosState = {
-        name: 'nosotros',
-        url: '/nosotros',
-        templateUrl: 'views/nosotros.html',
-        controller: 'NosotrosCtrl',
-        controllerAs: 'nosotros',
-        title: 'Nosotros'
-    };
-    
-    var slidesState = {
-        name: 'slides',
-        url: '/slides',
-        templateUrl: 'views/slides.html',
-        controller: 'SlidesCtrl',
-        controllerAs: 'slides',
-        title: 'Slides'
-    };
-    
     var clientesState = {
         name: 'clientes',
         url: '/clientes',
@@ -139,9 +139,9 @@ angular
     
     $stateProvider.state(mainState);
     $stateProvider.state(infosState);
-    /*$stateProvider.state(nosotrosState);
-    $stateProvider.state(slidesState);
-    $stateProvider.state(clientesState);
+    $stateProvider.state(categoriesState);
+    $stateProvider.state(postsState);
+    /*$stateProvider.state(clientesState);
     $stateProvider.state(serviciosState);
     $stateProvider.state(noticiasState);
     $stateProvider.state(directorioState);
