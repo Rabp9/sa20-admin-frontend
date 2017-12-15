@@ -48,7 +48,7 @@ angular
     
     var categoriesState = {
         name: 'categories',
-        url: '/categorias',
+        url: '/categories',
         templateUrl: 'views/categories.html',
         controller: 'CategoriesCtrl',
         controllerAs: 'categories',
