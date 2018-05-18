@@ -9,25 +9,46 @@
  */
 angular.module('sa20AdminFrontendApp')
 .controller('PostsCtrl', function ($scope, postsService, $uibModal, 
-    $utilsviewservice) {
+    $utilsViewService, categoriesService) {
         
-    $scope.loading = true;
     $scope.search = {};
+    $scope.search.text = '';
     $scope.search.estado_id = '1';
+    $scope.page = 1;
+    $scope.items_per_page = 10;
     
     $scope.getPosts = function() {
-        postsService.getAdmin(function(data) {
+        $scope.loading = true;
+        postsService.get({
+            estado_id: $scope.search.estado_id,
+            text: $scope.search.text,
+            category_id: $scope.search.category_id,
+            page: $scope.page,
+            items_per_page: $scope.items_per_page
+        }, function(data) {
             $scope.posts = data.posts;
+            $scope.pagination = data.pagination;
             $scope.loading = false;
         });
     };
     
+    $scope.getCategories = function() {
+        $scope.loading_categories = 'Cargando...';
+        categoriesService.get({
+            estado_id: 1
+        }, function(data) {
+            $scope.categories = data.categories;
+            $scope.loading_categories = 'Seleccione un Categoría';
+        });
+    };
+    
     $scope.init = function() {
+        $scope.getCategories();
         $scope.getPosts();
     };
     
     $scope.showPostsAdd = function(event) {
-        $utilsviewservice.disable(event.currentTarget);
+        $utilsViewService.disable(event.currentTarget);
         
         var modalInstanceAdd = $uibModal.open({
             templateUrl: 'views/posts-add.html',
@@ -36,7 +57,7 @@ angular.module('sa20AdminFrontendApp')
             size: 'lg'
         });
         
-        $utilsviewservice.enable(event.currentTarget);
+        $utilsViewService.enable(event.currentTarget);
         
         modalInstanceAdd.result.then(function(data) {
             $scope.getPosts();
@@ -45,7 +66,7 @@ angular.module('sa20AdminFrontendApp')
     };
     
     $scope.showPostsEdit = function(post, event) {
-        $utilsviewservice.disable(event.currentTarget);
+        $utilsViewService.disable(event.currentTarget);
         
         var modalInstanceEdit = $uibModal.open({
             templateUrl: 'views/posts-edit.html',
@@ -59,7 +80,7 @@ angular.module('sa20AdminFrontendApp')
             }
         });
         
-        $utilsviewservice.enable(event.currentTarget);
+        $utilsViewService.enable(event.currentTarget);
         
         modalInstanceEdit.result.then(function(data) {
             $scope.getPosts();
@@ -87,6 +108,30 @@ angular.module('sa20AdminFrontendApp')
                 post.estado_id = 2;
             });
         }
+    };
+    
+    $scope.$watch('search.text', function(oldValue, newValue) {
+        $scope.page = 1;
+        $scope.getPosts();
+    });
+    
+    $scope.$watch('search.estado_id', function(oldValue, newValue) {
+        $scope.page = 1;
+        $scope.getPosts();
+    });
+    
+    $scope.$watch('search.category_id', function(oldValue, newValue) {
+        $scope.page = 1;
+        $scope.getPosts();
+    });
+    
+    $scope.pageChanged = function() {
+        $scope.getPosts();
+    };
+    
+    $scope.onChangeItemsPerPage = function() {
+        $scope.page = 1;
+        $scope.getPosts();
     };
     
     $scope.init();

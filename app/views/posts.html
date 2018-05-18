@@ -9,9 +9,18 @@
 <h2>Posts</h2>
 <hr>
 <div class="row">
-    <div class="col-sm-10 col-sm-offset-1"> 
-        <button type="button" class="btn btn-primary" ng-click="showPostsAdd($event)"><span class="glyphicon glyphicon-plus"></span> Nuevo Post</button>
-        <div class="radio">
+    <div class="col-sm-12">
+        <form class="form-inline">  
+            <button type="button" class="btn btn-primary" ng-click="showPostsAdd($event)"><span class="glyphicon glyphicon-plus"></span> Nuevo Post</button>
+            <input id="srText" type="search" class="form-control" placeholder="Buscar..." ng-model="search.text">
+            <select id="sltCategory" class="form-control"
+                ng-options="category.id as category.descripcion for category in categories"
+                ng-model="search.category_id"
+                name="SearchCategoryId">
+                <option value="">{{ loading_categories }}</option>
+            </select>
+        </form>
+        <div class="radio pull-left">
             <label>
                 <input type="radio" ng-model="search.estado_id" value=""> 
                 Todos
@@ -25,6 +34,17 @@
                 Inactivos
             </label>
         </div>
+        <div class="pull-right">
+            Mostrando 
+            <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPage()"
+                ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+            </select> 
+            resultados por página
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
         <scrollable-table watch="posts" class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -38,9 +58,9 @@
                 <tbody>
                     <tr ng-show="loading"><td colspan="4">Cargando...</td></tr>
                     <tr ng-show="!loading && posts.length === 0"><td colspan="4">No hay registros</td></tr>
-                    <tr ng-show="!loading && posts.length !== 0" ng-class="{'danger': post.estado_id === 2}" ng-repeat="post in posts | toArray:false | filter:search" row-id="{{ post.id }}">
+                    <tr ng-show="!loading && posts.length !== 0" ng-class="{'danger': post.estado_id === 2}" ng-repeat="post in posts" row-id="{{ post.id }}">
                         <td>{{ post.id }}</td>
-                        <td>{{ post.titulo }}</td>
+                        <td>{{ post.title }}</td>
                         <td>{{ post.category.descripcion }}</td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm" ng-click="showPostsEdit(post, $event)"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -51,5 +71,11 @@
                 </tbody>
             </table>
         </scrollable-table>
+        
+        <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
+            last-text="Último" next-text="Siguiente" previous-text="Anterior"
+            items-per-page="pagination.itemsPerPage" ng-model="page" 
+            class="pagination-sm" boundary-links="true" force-ellipses="true"
+            ng-change="pageChanged()"></ul>
     </div>
 </div>
