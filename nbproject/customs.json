@@ -1,8 +1,13 @@
 {
-    "elements": {},
+    "elements": {
+        "scrollable-table": {}
+    },
     "attributes": {
         "angular-validator": {
             "context": "form"
+        },
+        "sortable-header": {
+            "context": "th"
         },
         "ui-sref-active": {
             "context": "a"
