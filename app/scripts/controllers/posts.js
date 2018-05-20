@@ -47,24 +47,6 @@ angular.module('sa20AdminFrontendApp')
         $scope.getPosts();
     };
     
-    $scope.showPostsAdd = function(event) {
-        $utilsViewService.disable(event.currentTarget);
-        
-        var modalInstanceAdd = $uibModal.open({
-            templateUrl: 'views/posts-add.html',
-            controller: 'PostsAddCtrl',
-            backdrop: false,
-            size: 'lg'
-        });
-        
-        $utilsViewService.enable(event.currentTarget);
-        
-        modalInstanceAdd.result.then(function(data) {
-            $scope.getPosts();
-            $scope.message = data;
-        });
-    };
-    
     $scope.showPostsEdit = function(post, event) {
         $utilsViewService.disable(event.currentTarget);
         

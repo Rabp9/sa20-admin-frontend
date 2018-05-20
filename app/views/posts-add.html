@@ -1,0 +1,92 @@
+<ol class="breadcrumb">
+    <li><a ui-sref="main">Inicio</a></li>
+    <li><a ui-sref="posts">Posts</a></li>
+    <li>Nuevo Post</li>
+</ol>
+<div class="alert alert-dismissible" ng-class="{'alert-success': message.code === 200, 'alert-danger': message.code !== 200 }" role="alert" ng-show="message.code !== undefined">
+    <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message.message }} 
+</div>
+<h2>Nuevo Post</h2>
+<hr>
+<form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="txtTitlePost">Título</label>
+                <input id="txtTitlePost" class="form-control" type="text" name="titlePost" ng-model="post.title" placeholder="Título" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="txtSubtitlePost">Subtítulo</label>
+                <input id="txtSubtitlePost" class="form-control" type="text" name="subtitlePost" ng-model="post.subtitle" placeholder="Subtítulo" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="sltCategory">Categoría</label>
+                <select id="sltCategory" class="form-control"
+                    ng-options="category as category.descripcion for category in categories"
+                    ng-model="post.category" name="categoryPost">
+                    <option value="">{{ loading_categories }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="txtaResumen">Resumen</label>
+                <textarea id="txtaResumen" class="form-control textarea-2x"
+                    ng-model="post.resumen" ui-tinymce="tinymceOptions" name="resumenPost"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="txtaBody">Contenido</label>
+                <textarea id="txtaBody" class="form-control textarea-4x"
+                    ng-model="post.body" ui-tinymce="tinymceOptions" name="bodyPost"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="flPortada">Portada</label>
+                <input id="flPortada" type="file" class="form-control" ngf-select="previewPortada($file, $invalidFiles)" 
+                    accept="image/*" ngf-max-height="15000" ngf-max-size="10MB" name="portadaPost" />
+                <span ng-show="loading_portada">Cargando...</span>
+                <span ng-hide="portadaPreview === undefined || portadaPreview === null">Imagen cargada correctamente</span>
+                <span ng-show="!loading && loadingPortada === null">No fue posible cargar la Imagen</span>
+                <img ng-hide="portadaPreview === undefined || portadaPreview === null" class="img-responsive" ng-src="{{tmp_path + '/' + portadaPreview}}" alt="imagen previa" >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 col-xs-12">
+            <div class="form-group">
+                <label for="dtFechaPublicacion">Fecha de Publicación</label>
+                <input id="dtFechaPublicacion" class="form-control" type="date" name="fechaPublicacionPost" ng-model="fechaPublicacionPre" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group pull-right">
+                <button id="btnSave" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-"></span> Guardar</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -62,6 +62,15 @@ angular
         controller: 'PostsCtrl',
         controllerAs: 'posts',
         title: 'Posts'
+    };    
+    
+    var postsAddState = {
+        name: 'postsAdd',
+        url: '/posts/add',
+        templateUrl: 'views/posts-add.html',
+        controller: 'PostsAddCtrl',
+        controllerAs: 'postsAdd',
+        title: 'Nuevo Post'
     };
     /*
     var clientesState = {
@@ -141,6 +150,7 @@ angular
     $stateProvider.state(infosState);
     $stateProvider.state(categoriesState);
     $stateProvider.state(postsState);
+    $stateProvider.state(postsAddState);
     /*$stateProvider.state(clientesState);
     $stateProvider.state(serviciosState);
     $stateProvider.state(noticiasState);

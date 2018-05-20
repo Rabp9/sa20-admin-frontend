@@ -11,12 +11,12 @@
 <div class="row">
     <div class="col-sm-12">
         <form class="form-inline">  
-            <button type="button" class="btn btn-primary" ng-click="showPostsAdd($event)"><span class="glyphicon glyphicon-plus"></span> Nuevo Post</button>
+            <a ui-sref="postsAdd" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuevo Post</a>
             <input id="srText" type="search" class="form-control" placeholder="Buscar..." ng-model="search.text">
             <select id="sltCategory" class="form-control"
                 ng-options="category.id as category.descripcion for category in categories"
                 ng-model="search.category_id"
-                name="SearchCategoryId">
+                name="ctegoryIdSearch">
                 <option value="">{{ loading_categories }}</option>
             </select>
         </form>

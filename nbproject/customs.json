@@ -9,6 +9,9 @@
         "sortable-header": {
             "context": "th"
         },
+        "ngf-select": {
+            "context": "input"
+        },
         "ui-sref-active": {
             "context": "a"
         },
