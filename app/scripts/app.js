@@ -163,7 +163,7 @@ angular
 })
 .run(function($rootScope, $state, $cookies, $location, $window, envService) {
     angular.module('sa20AdminFrontendApp').path_location = envService.getHost();
-    $rootScope.path_location = envService.getHost();
+    $rootScope.pathLocation = envService.getHost();
     
     $('#dvMessageRoot').removeClass('dvHidden');
     $rootScope.tinymceOptions = {

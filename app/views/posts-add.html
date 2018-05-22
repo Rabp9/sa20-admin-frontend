@@ -9,7 +9,7 @@
 </div>
 <h2>Nuevo Post</h2>
 <hr>
-<form>
+<form novalidate angular-validator angular-validator-submit="savePost(post, 'btnSavePost', portadaPreview)" name="PostsAdd">
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group">
@@ -33,7 +33,7 @@
                 <select id="sltCategory" class="form-control"
                     ng-options="category as category.descripcion for category in categories"
                     ng-model="post.category" name="categoryPost">
-                    <option value="">{{ loading_categories }}</option>
+                    <option value="">{{ loadingCategories }}</option>
                 </select>
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="form-group">
                 <label for="txtaBody">Contenido</label>
                 <textarea id="txtaBody" class="form-control textarea-4x"
-                    ng-model="post.body" ui-tinymce="tinymceOptions" name="bodyPost"></textarea>
+                    ng-model="post.body" ui-tinymce="tinymcePagesOptions" name="bodyPost"></textarea>
             </div>
         </div>
     </div>
@@ -62,10 +62,10 @@
                 <label for="flPortada">Portada</label>
                 <input id="flPortada" type="file" class="form-control" ngf-select="previewPortada($file, $invalidFiles)" 
                     accept="image/*" ngf-max-height="15000" ngf-max-size="10MB" name="portadaPost" />
-                <span ng-show="loading_portada">Cargando...</span>
+                <span ng-show="loadingPortada">Cargando...</span>
                 <span ng-hide="portadaPreview === undefined || portadaPreview === null">Imagen cargada correctamente</span>
                 <span ng-show="!loading && loadingPortada === null">No fue posible cargar la Imagen</span>
-                <img ng-hide="portadaPreview === undefined || portadaPreview === null" class="img-responsive" ng-src="{{tmp_path + '/' + portadaPreview}}" alt="imagen previa" >
+                <img ng-hide="portadaPreview === undefined || portadaPreview === null" class="img-responsive" ng-src="{{tmpPath + '/' + portadaPreview}}" alt="imagen previa" >
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group pull-right">
-                <button id="btnSave" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-"></span> Guardar</button>
+                <button id="btnSavePost" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-"></span> Guardar</button>
             </div>
         </div>
     </div>
