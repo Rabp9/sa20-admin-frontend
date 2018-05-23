@@ -6,12 +6,15 @@
     <button type="button" class="close" ng-click="message.code = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ message.message }} 
 </div>
-<h2>Noticias</h2>
+<h2>Categorías</h2>
 <hr>
 <div class="row">
-    <div class="col-sm-10 col-sm-offset-1"> 
-        <button type="button" class="btn btn-primary" ng-click="showNoticiasAdd($event)"><span class="glyphicon glyphicon-plus"></span> Nuevo Noticia</button>
-        <div class="radio">
+    <div class="col-sm-12">
+        <form class="form-inline">  
+            <a ui-sref="categoriesAdd" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nueva Categoría</a>
+            <input id="srText" type="search" class="form-control" placeholder="Buscar..." ng-model="search.text">
+        </form>
+        <div class="radio pull-left">
             <label>
                 <input type="radio" ng-model="search.estado_id" value=""> 
                 Todos
@@ -25,31 +28,46 @@
                 Inactivos
             </label>
         </div>
-        <scrollable-table watch="noticias" class="table-responsive">
+        <div class="pull-right">
+            Mostrando 
+            <select class="form-control" style="width: 70px; display: inline;" ng-change="onChangeItemsPerPage()"
+                ng-model="items_per_page" ng-options="option for option in [10, 50, 100, 150]">
+            </select> 
+            resultados por página
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <scrollable-table watch="posts" class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th sortable-header col="id">Código</th>
-                        <th sortable-header col="titulo">Título</th>
-                        <th sortable-header col="subtitulo">Sub título</th>
+                        <th sortable-header col="descripcion">Descripción</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-show="loading"><td colspan="4">Cargando...</td></tr>
-                    <tr ng-show="!loading && noticias.length === 0"><td colspan="4">No hay registros</td></tr>
-                    <tr ng-show="!loading && noticias.length !== 0" ng-class="{'danger': noticia.estado_id === 2}" ng-repeat="noticia in noticias | toArray:false | filter:search" row-id="{{ noticia.id }}">
-                        <td>{{ noticia.id }}</td>
-                        <td>{{ noticia.titulo }}</td>
-                        <td>{{ noticia.subtitulo }}</td>
+                    <tr ng-show="loading"><td colspan="3">Cargando...</td></tr>
+                    <tr ng-show="!loading && categories.length === 0"><td colspan="3">No hay registros</td></tr>
+                    <tr ng-show="!loading && categories.length !== 0" ng-class="{'danger': category.estado_id === 2}" ng-repeat="category in categories" row-id="{{ category.id }}">
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.descripcion }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="showNoticiasEdit(noticia, $event)"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button ng-show="noticia.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showNoticiasDelete(noticia)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
-                            <button ng-show="noticia.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showNoticiasActivate(noticia)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="showCategoriesEdit(post, $event)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button ng-show="category.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showCategoriesDelete(category)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button ng-show="category.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showCategoriesActivate(category)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </scrollable-table>
+        
+        <ul uib-pagination total-items="pagination.totalItems" first-text="Primero" 
+            last-text="Último" next-text="Siguiente" previous-text="Anterior"
+            items-per-page="pagination.itemsPerPage" ng-model="page" 
+            class="pagination-sm" boundary-links="true" force-ellipses="true"
+            ng-change="pageChanged()"></ul>
     </div>
 </div>
