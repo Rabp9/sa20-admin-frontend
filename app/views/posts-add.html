@@ -31,8 +31,8 @@
             <div class="form-group">
                 <label for="sltCategory">Categoría</label>
                 <select id="sltCategory" class="form-control"
-                    ng-options="category as category.descripcion for category in categories"
-                    ng-model="post.category" name="categoryPost">
+                    ng-options="category.id as category.descripcion for category in categories"
+                    ng-model="post.category_id" name="categoryIdPost">
                     <option value="">{{ loadingCategories }}</option>
                 </select>
             </div>
@@ -53,6 +53,7 @@
                 <label for="txtaBody">Contenido</label>
                 <textarea id="txtaBody" class="form-control textarea-4x"
                     ng-model="post.body" ui-tinymce="tinymcePagesOptions" name="bodyPost"></textarea>
+                <input type="file" id="flImageContenido" style="display: none;">
             </div>
         </div>
     </div>
@@ -70,10 +71,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2 col-xs-12">
+        <div class="col-sm-3 col-xs-12">
             <div class="form-group">
                 <label for="dtFechaPublicacion">Fecha de Publicación</label>
-                <input id="dtFechaPublicacion" class="form-control" type="date" name="fechaPublicacionPost" ng-model="fechaPublicacionPre" />
+                <input id="dtFechaPublicacion" class="form-control" type="datetime-local" name="fechaPublicacionPost" ng-model="fechaPublicacionPre" />
             </div>
         </div>
     </div>

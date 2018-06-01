@@ -19,9 +19,20 @@ angular.module('sa20AdminFrontendApp')
         plugins: 'lists autolink textcolor colorpicker link media preview table code image',
         language_url : '/scripts/langs_tinymce/es.js',
         file_browser_callback_types: 'image',
-        file_browser_callback: function(field_name, url, type, win) {
-            $scope.input = field_name;
-            $('#flImagen').click();
+        file_picker_callback: function(callback, value, meta) {
+            if (meta.filetype == 'image') {
+                $('#flImageContenido').click();
+                $('#flImageContenido').change(function() {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        callback(e.target.result, {
+                            alt: ''
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
         }
     };
        
@@ -58,22 +69,28 @@ angular.module('sa20AdminFrontendApp')
     $scope.savePost = function(post, boton, portadaPreview) {
         $('#' + boton).text('Guardando...');
         $utilsViewService.disable('#' + boton);
+        var date = new Date();
         
         if (portadaPreview !== null) {
             post.portada = portadaPreview;
         }
+        
         if ($scope.fechaPublicacionPre !== null) {
-            post.fechaPublicacion = $utilsViewService.formatDate($scope.fechaPublicacionPre);
+            post.fechaPublicacion = $utilsViewService.formatDateTime($scope.fechaPublicacionPre);
         }
+        
         post.estado_id = 1;
+        post.user_id = $rootScope.user.id;
+        post.fechaRegistro = $utilsViewService.formatDateTime(date);
         
         postsService.save(post, function(data) {
             $utilsViewService.enable('#' + boton);
+            $rootScope.message = data;
             $state.go('posts');
-        }, function (err) {
-            $scope.message = err;
+        }, function(err) {
             $utilsViewService.enable('#' + boton);
-            $('#' + boton).text('Guardar');
+            $rootScope.message = err;
+            $state.go('posts');
         });
     };
     
