@@ -1,3 +1,8 @@
+.when('/posts-edit', {
+  templateUrl: 'views/posts-edit.html',
+  controller: 'PostsEditCtrl',
+  controllerAs: 'postsEdit'
+})
 'use strict';
 
 /**
