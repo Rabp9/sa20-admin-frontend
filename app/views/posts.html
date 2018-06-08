@@ -63,7 +63,7 @@
                         <td>{{ post.title }}</td>
                         <td>{{ post.category.descripcion }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="showPostsEdit(post, $event)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button" class="btn btn-primary btn-sm" ui-sref="postsEdit({id: post.id})"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button ng-show="post.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showPostsDelete(post)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
                             <button ng-show="post.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showPostsActivate(post)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
                         </td>

@@ -1,8 +1,3 @@
-.when('/posts-edit', {
-  templateUrl: 'views/posts-edit.html',
-  controller: 'PostsEditCtrl',
-  controllerAs: 'postsEdit'
-})
 'use strict';
 
 /**
@@ -77,6 +72,16 @@ angular
         controllerAs: 'postsAdd',
         title: 'Nuevo Post'
     };
+    
+    var postsEditState = {
+        name: 'postsEdit',
+        url: '/posts/edit/:id',
+        templateUrl: 'views/posts-edit.html',
+        controller: 'PostsEditCtrl',
+        controllerAs: 'postsEdit',
+        title: 'Editar Post'
+    };
+    
     /*
     var clientesState = {
         name: 'clientes',
@@ -156,6 +161,7 @@ angular
     $stateProvider.state(categoriesState);
     $stateProvider.state(postsState);
     $stateProvider.state(postsAddState);
+    $stateProvider.state(postsEditState);
     /*$stateProvider.state(clientesState);
     $stateProvider.state(serviciosState);
     $stateProvider.state(noticiasState);

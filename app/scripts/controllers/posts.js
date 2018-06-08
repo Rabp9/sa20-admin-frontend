@@ -47,29 +47,6 @@ angular.module('sa20AdminFrontendApp')
         $scope.getPosts();
     };
     
-    $scope.showPostsEdit = function(post, event) {
-        $utilsViewService.disable(event.currentTarget);
-        
-        var modalInstanceEdit = $uibModal.open({
-            templateUrl: 'views/posts-edit.html',
-            controller: 'PostsEditCtrl',
-            backdrop: false,
-            size: 'lg',
-            resolve: {
-                post: function() {
-                    return post;
-                }
-            }
-        });
-        
-        $utilsViewService.enable(event.currentTarget);
-        
-        modalInstanceEdit.result.then(function(data) {
-            $scope.getPosts();
-            $scope.message = data;
-        });
-    };
-    
     $scope.showPostsDelete = function(post) {
         if (confirm('¿Está seguro de deshabilitar el post?')) {
             post.estado_id = 2;
