@@ -11,7 +11,10 @@ angular.module('sa20AdminFrontendApp')
   .controller('PostsEditCtrl', function ($scope, $rootScope, categoriesService, postsService, $utilsViewService,
     $state, $q) {
         
-    $scope.tmpPath = $rootScope.pathLocation + 'tmp' + '/';
+    var preview = true;
+    var changed = false;
+    var tmpPath = $rootScope.pathLocation + 'tmp' + '/';
+    $scope.tmpPath = $rootScope.pathLocation + 'img' + '/posts';
     $scope.tinymcePagesOptions = {
         toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table | fontsizeselect | fontselect ",
         fontsize_formats: "8pt 10pt 11pt 12pt 13pt 14pt 15pt 16pt 17pt 18pt 19pt 20pt 21pt 22pt 23pt 24pt 25pt 26pt 27pt 28pt",
@@ -45,8 +48,9 @@ angular.module('sa20AdminFrontendApp')
         $scope.loading = true;
         postsService.get({id: id}, function(data) {
             $scope.post = data.post;
+            $scope.portadaPreview = $scope.post.portada;
             $scope.loading = false;
-        });  
+        });
     };
     
     $scope.getCategorias = function() {
@@ -62,17 +66,24 @@ angular.module('sa20AdminFrontendApp')
     };
     
     $scope.previewPortada = function(portada, errFiles) {
-        $scope.loadingPortada = true;
-        var fd = new FormData();
-        fd.append('file', portada);
-        
-        postsService.previewPortada(fd, function(data) {
-            $scope.portadaPreview = data.filename;
-            $scope.loadingPortada = false;
-        }, function(err) {
-            $scope.portadaPreview = null;
-            $scope.loadingPortada = false;
-        });
+        if (preview && portada !== null) {
+            $scope.loadingPortada = true;
+            var fd = new FormData();
+            fd.append('file', portada);
+
+            postsService.previewPortada(fd, function(data) {
+                $scope.portadaPreview = data.filename;
+                $scope.loadingPortada = false;
+                $scope.tmpPath = tmpPath;
+                changed = true;
+            }, function(err) {
+                $scope.portadaPreview = null;
+                $scope.loadingPortada = false;
+            });
+            preview = false;
+        } else {
+            preview = true;
+        }
     };
     
     $scope.savePost = function(post, boton, portadaPreview) {
@@ -88,9 +99,10 @@ angular.module('sa20AdminFrontendApp')
             post.fechaPublicacion = $utilsViewService.formatDateTime($scope.fechaPublicacionPre);
         }
         
+        post.changed = changed;
         post.estado_id = 1;
         post.user_id = $rootScope.user.id;
-        post.fechaRegistro = $utilsViewService.formatDateTime(date);
+        post.fechaModificacion = $utilsViewService.formatDateTime(date);
         
         postsService.save(post, function(data) {
             $utilsViewService.enable('#' + boton);

@@ -19,6 +19,7 @@ angular.module('sa20AdminFrontendApp')
     
     $scope.getPosts = function() {
         $scope.loading = true;
+        $scope.posts = [];
         postsService.get({
             estado_id: $scope.search.estado_id,
             text: $scope.search.text,
@@ -69,11 +70,6 @@ angular.module('sa20AdminFrontendApp')
         }
     };
     
-    $scope.$watch('search.text', function(oldValue, newValue) {
-        $scope.page = 1;
-        $scope.getPosts();
-    });
-    
     $scope.$watch('search.estado_id', function(oldValue, newValue) {
         $scope.page = 1;
         $scope.getPosts();
@@ -89,6 +85,11 @@ angular.module('sa20AdminFrontendApp')
     };
     
     $scope.onChangeItemsPerPage = function() {
+        $scope.page = 1;
+        $scope.getPosts();
+    };
+    
+    $scope.search = function() {
         $scope.page = 1;
         $scope.getPosts();
     };

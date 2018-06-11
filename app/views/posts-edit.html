@@ -64,7 +64,7 @@
                 <input id="flPortada" type="file" class="form-control" ngf-select="previewPortada($file, $invalidFiles)" 
                     accept="image/*" ngf-max-height="15000" ngf-max-size="10MB" name="portadaPost" />
                 <span ng-show="loadingPortada">Cargando...</span>
-                <span ng-hide="portadaPreview === undefined || portadaPreview === null">Imagen cargada correctamente</span>
+                <span ng-hide="loadingPortada || portadaPreview === undefined || portadaPreview === null">Imagen cargada correctamente</span>
                 <span ng-show="!loading && loadingPortada === null">No fue posible cargar la Imagen</span>
                 <img ng-hide="portadaPreview === undefined || portadaPreview === null" class="img-responsive" ng-src="{{tmpPath + '/' + portadaPreview}}" alt="imagen previa" >
             </div>
@@ -73,14 +73,9 @@
     <div class="row">
         <div class="col-sm-3 col-xs-12">
             <div class="form-group">
-                <label for="dtFechaPublicacion">Fecha de Publicación</label>
+                <label for="dtFechaPublicacion">Fecha y Hora de Publicación</label>
                 <input id="dtFechaPublicacion" class="form-control" type="datetime-local" name="fechaPublicacionPost" ng-model="fechaPublicacionPre" />
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            
         </div>
     </div>
     <div class="row">

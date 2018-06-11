@@ -11,6 +11,7 @@ angular.module('sa20AdminFrontendApp')
 .controller('PostsAddCtrl', function ($scope, $rootScope, categoriesService, postsService, $utilsViewService,
     $state) {
         
+    var preview = true;
     $scope.post = {};
     $scope.tmpPath = $rootScope.pathLocation + 'tmp' + '/';
     $scope.tinymcePagesOptions = {
@@ -53,17 +54,22 @@ angular.module('sa20AdminFrontendApp')
     };
     
     $scope.previewPortada = function(portada, errFiles) {
-        $scope.loadingPortada = true;
-        var fd = new FormData();
-        fd.append('file', portada);
-        
-        postsService.previewPortada(fd, function(data) {
-            $scope.portadaPreview = data.filename;
-            $scope.loadingPortada = false;
-        }, function(err) {
-            $scope.portadaPreview = null;
-            $scope.loadingPortada = false;
-        });
+        if (preview && portada !== null) {
+            $scope.loadingPortada = true;
+            var fd = new FormData();
+            fd.append('file', portada);
+
+            postsService.previewPortada(fd, function(data) {
+                $scope.portadaPreview = data.filename;
+                $scope.loadingPortada = false;
+            }, function(err) {
+                $scope.portadaPreview = null;
+                $scope.loadingPortada = false;
+            });
+            preview = false;
+        } else {
+            preview = true;
+        }
     };
     
     $scope.savePost = function(post, boton, portadaPreview) {
@@ -73,6 +79,7 @@ angular.module('sa20AdminFrontendApp')
         
         if (portadaPreview !== null) {
             post.portada = portadaPreview;
+            post.changed = true;
         }
         
         if ($scope.fechaPublicacionPre !== null) {
