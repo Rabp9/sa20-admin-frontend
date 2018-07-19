@@ -14,7 +14,8 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="txtTitlePost">Título</label>
-                <input id="txtTitlePost" class="form-control" type="text" name="titlePost" ng-model="post.title" placeholder="Título" />
+                <input id="txtTitlePost" class="form-control" type="text" ng-model="post.title" placeholder="Título"
+                    name="titlePost" required required-message="'Este campo es requerido'" validate-on="blur" />
             </div>
         </div>
     </div>
@@ -22,7 +23,8 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="txtSubtitlePost">Subtítulo</label>
-                <input id="txtSubtitlePost" class="form-control" type="text" name="subtitlePost" ng-model="post.subtitle" placeholder="Subtítulo" />
+                <input id="txtSubtitlePost" class="form-control" type="text" ng-model="post.subtitle" placeholder="Subtítulo"
+                    name="subtitlePost" />
             </div>
         </div>
     </div>
@@ -32,7 +34,8 @@
                 <label for="sltCategory">Categoría</label>
                 <select id="sltCategory" class="form-control"
                     ng-options="category.id as category.descripcion for category in categories"
-                    ng-model="post.category_id" name="categoryIdPost">
+                    ng-model="post.category_id" 
+                    name="categoryIdPost" />
                     <option value="">{{ loadingCategories }}</option>
                 </select>
             </div>
@@ -62,7 +65,8 @@
             <div class="form-group">
                 <label for="flPortada">Portada</label>
                 <input id="flPortada" type="file" class="form-control" ngf-select="previewPortada($file, $invalidFiles)" 
-                    accept="image/*" ngf-max-height="15000" ngf-max-size="10MB" name="portadaPost" />
+                    accept="image/*" ngf-max-height="15000" ngf-max-size="10MB" 
+                    name="portadaPost" required required-message="'Este campo es requerido'" validate-on="blur" />
                 <span ng-show="loadingPortada">Cargando...</span>
                 <span ng-hide="loadingPortada || portadaPreview === undefined || portadaPreview === null">Imagen cargada correctamente</span>
                 <span ng-show="!loading && loadingPortada === null">No fue posible cargar la Imagen</span>

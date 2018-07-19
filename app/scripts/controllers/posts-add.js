@@ -77,7 +77,12 @@ angular.module('sa20AdminFrontendApp')
         $utilsViewService.disable('#' + boton);
         var date = new Date();
         
-        if (portadaPreview !== null) {
+        if (portadaPreview === undefined) {
+            alert('Debes seleccionar una imagen de portada.');
+            $utilsViewService.enable('#' + boton);
+            $('#' + boton).text('Guardar');
+            return;
+        } else {
             post.portada = portadaPreview;
             post.changed = true;
         }

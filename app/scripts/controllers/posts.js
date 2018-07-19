@@ -13,9 +13,6 @@ angular.module('sa20AdminFrontendApp')
         
     $scope.search = {};
     $scope.search.text = '';
-    $scope.search.estado_id = '1';
-    $scope.page = 1;
-    $scope.items_per_page = 10;
     
     $scope.getPosts = function() {
         $scope.loading = true;
@@ -46,6 +43,9 @@ angular.module('sa20AdminFrontendApp')
     $scope.init = function() {
         $scope.getCategories();
         $scope.getPosts();
+        $scope.search.estado_id = '1';
+        $scope.page = 1;
+        $scope.items_per_page = 10;
     };
     
     $scope.showPostsDelete = function(post) {
