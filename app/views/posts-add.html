@@ -78,7 +78,8 @@
         <div class="col-sm-3 col-xs-12">
             <div class="form-group">
                 <label for="dtFechaPublicacion">Fecha y Hora de Publicación</label>
-                <input id="dtFechaPublicacion" class="form-control" type="datetime-local" name="fechaPublicacionPost" ng-model="fechaPublicacionPre" />
+                <input id="dtFechaPublicacion" class="form-control" type="datetime-local" ng-model="fechaPublicacionPre" 
+                    name="fechaPublicacionPre" required required-message="'Este campo es requerido'" validate-on="blur" />
             </div>
         </div>
     </div>
