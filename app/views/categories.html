@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col-sm-12">
         <form class="form-inline">  
-            <a ui-sref="categoriesAdd" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nueva Categoría</a>
+            <button type="button" class="btn btn-primary" ng-click="showCategoriesAdd($event)"><span class="glyphicon glyphicon-plus"></span> Nueva Categoría</button>
             <input id="srText" type="search" class="form-control" placeholder="Buscar..." ng-model="search.text">
         </form>
         <div class="radio pull-left">
