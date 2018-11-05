@@ -14,7 +14,7 @@ angular.module('sa20AdminFrontendApp')
     
     $scope.getInfos = function() {
         $scope.loading = true;
-        infosService.getDataByData(search, function(data) {
+        infosService.indexAdmin(search, function(data) {
             $scope.infos = data.infos;
             $scope.loading = false;
         }); 

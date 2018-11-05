@@ -10,21 +10,17 @@
 angular.module('sa20AdminFrontendApp')
 .factory('infosService', function($resource, envService) {
     return $resource(envService.getHost() + 'infos/:id.json', {}, {
-        saveMany: {
+        getMany: {
             method: 'POST',
-            url: envService.getHost() + 'infos/saveMany.json',
+            url: envService.getHost() + 'infos/getMany.json'
         },
-        getDataMany: {
+        indexAdmin: {
             method: 'POST',
-            url: envService.getHost() + 'infos/getDataMany.json',
+            url: envService.getHost() + 'infos/indexAdmin.json'
         },
-        getDataByData: {
+        previewImagen: {
             method: 'POST',
-            url: envService.getHost() + 'infos/getDataByData.json',
-        },
-        upload: {
-            method: 'POST',
-            url: envService.getHost() + 'infos/upload/.json',
+            url: envService.getHost() + 'infos/previewImagen.json',
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }

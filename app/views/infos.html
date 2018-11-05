@@ -22,9 +22,9 @@
                 <tbody>
                     <tr ng-hide="!loading"><td colspan="3">Cargando...</td></tr>
                     <tr ng-show="!loading && infos.length === 0"><td colspan="3">No hay registros</td></tr>
-                    <tr ng-show="!loading && infos.length !== 0" ng-repeat="info in infos" row-id="{{ info.dato }}">
-                        <td>{{ info.dato }}</td>
-                        <td><span ng-bind-html="info.value | limitTo: 90"></span><span ng-if="info.value.length > 90">...</span></td>
+                    <tr ng-show="!loading && infos.length !== 0" ng-repeat="info in infos" row-id="{{ info.descripcion }}">
+                        <td>{{ info.descripcion }}</td>
+                        <td><span ng-bind-html="info.valor | limitTo: 90"></span><span ng-if="info.valor.length > 90">...</span></td>
                         <td><button type="button" class="btn btn-primary btn-sm" ng-click="showInfosEdit(info, $event)"><span class="glyphicon glyphicon-pencil"></span></button></td>
                     </tr>
                 </tbody>
