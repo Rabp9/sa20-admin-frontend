@@ -55,7 +55,7 @@
                         <td>{{ category.id }}</td>
                         <td>{{ category.descripcion }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="showCategoriesEdit(post, $event)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="showCategoriesEdit(category, $event)"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button ng-show="category.estado_id === 1" type="button" class="btn btn-danger btn-sm" ng-click="showCategoriesDelete(category)" title="Deshabilitar"><span class="glyphicon glyphicon-remove"></span></button>
                             <button ng-show="category.estado_id === 2" type="button" class="btn btn-default btn-sm" ng-click="showCategoriesActivate(category)" title="Activar"><span class="glyphicon glyphicon-ok"></span></button>
                         </td>
