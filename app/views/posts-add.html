@@ -35,7 +35,7 @@
                 <select id="sltCategory" class="form-control"
                     ng-options="category.id as category.descripcion for category in categories"
                     ng-model="post.category_id" 
-                    name="categoryIdPost" />
+                    name="categoryIdPost">
                     <option value="">{{ loadingCategories }}</option>
                 </select>
             </div>

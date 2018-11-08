@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="flPortada">Portada</label>
                     <input id="flPortada" type="file" class="form-control" ngf-select="previewPortada($file, $invalidFiles)" 
-                        accept="image/*" ngf-max-height="15000" ngf-max-size="10MB" name="categoryPortada" />
+                        accept="image/*" ngf-max-height="15000" ngf-max-size="10MB" name="categoryPortada"/>
                     <img ng-hide="portadaPreview === undefined || portadaPreview === null" class="img-responsive" ng-src="{{tmpPath + '/' + portadaPreview}}" alt="portada previa" >
                     <span ng-hide="portadaPreview === undefined || portadaPreview === null">Portada cargada correctamente</span>
                     <span ng-show="loadingPortada">Cargando...</span>
