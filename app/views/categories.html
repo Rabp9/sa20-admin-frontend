@@ -10,9 +10,15 @@
 <hr>
 <div class="row">
     <div class="col-sm-12">
-        <form class="form-inline">  
+        <form class="form-inline" ng-submit="search()">
             <button type="button" class="btn btn-primary" ng-click="showCategoriesAdd($event)"><span class="glyphicon glyphicon-plus"></span> Nueva Categoría</button>
-            <input id="srText" type="search" class="form-control" placeholder="Buscar..." ng-model="search.text">
+            
+            <div class="input-group">
+                <input id="srText" type="search" class="form-control" placeholder="Buscar..." ng-model="search.text">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
         </form>
         <div class="radio pull-left">
             <label>

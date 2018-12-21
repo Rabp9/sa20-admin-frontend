@@ -13,7 +13,6 @@ angular.module('sa20AdminFrontendApp')
         
     $scope.loading = true;
     $scope.search = {};
-    $scope.search.estado_id = '1';
     
     $scope.getCategories = function() {
         $scope.loading = true;
@@ -31,6 +30,10 @@ angular.module('sa20AdminFrontendApp')
     
     $scope.init = function() {
         $scope.getCategories();
+        $scope.search.estado_id = '1';
+        $scope.search.text = '';
+        $scope.page = 1;
+        $scope.items_per_page = 10;
     };
     
     $scope.showCategoriesAdd = function(event) {
@@ -94,6 +97,25 @@ angular.module('sa20AdminFrontendApp')
                 category.estado_id = 2;
             });
         }
+    };
+    
+    $scope.$watch('search.estado_id', function(oldValue, newValue) {
+        $scope.page = 1;
+        $scope.getCategories();
+    });
+    
+    $scope.pageChanged = function() {
+        $scope.getCategories();
+    };
+    
+    $scope.onChangeItemsPerPage = function() {
+        $scope.page = 1;
+        $scope.getCategories();
+    };
+    
+    $scope.search = function() {
+        $scope.page = 1;
+        $scope.getCategories();
     };
     
     $scope.init();
