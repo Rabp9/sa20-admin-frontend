@@ -43,7 +43,7 @@
                     <a ui-sref-active="active" ui-sref="categories">Categorías</a>
                 </li>
                 <li>
-                    <a ui-sref-active="active" ui-sref="posts">Posts</a>
+                    <a ui-sref-active="active" ng-class="{active: ('postsAdd' | includedByState) || ('postsEdit' | includedByState)}" ui-sref="posts">Posts</a>
                 </li>
                 <li>
                     <a style="cursor: pointer;" ng-click="logout()">Log out</a>
@@ -76,7 +76,7 @@
                         <li ui-sref-active="active">
                             <a ui-sref="categorias">Categorías</a>
                         </li>
-                        <li ui-sref-active="active">
+                        <li ui-sref-active="active" ng-class="{active: ('postsAdd' | includedByState) || ('postsEdit' | includedByState)}">
                             <a ui-sref="posts">Posts</a>
                         </li>
                         <li ui-sref-active="active">
